@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GAB° — ハンバーガーショップ</title>
+  <meta name="description" content="GAB°（ギャブ）のこだわりバーガーショップ。新鮮な食材と特製パティで作る本格バーガーをお楽しみください。" />
+
+  <!-- ===== Google Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────────
+       CSS カスタムプロパティ（色変更はここだけでOK）
+    ───────────────────────────────────────────── */
+    :root {
+      --bg:          #0D0B09;        /* ページ背景 */
+      --bg-2:        #161310;        /* セクション交互背景 */
+      --bg-card:     #1E1A16;        /* カード背景 */
+      --text:        #F5F0E8;        /* メインテキスト */
+      --text-2:      #B8AFA4;        /* サブテキスト */
+      --text-3:      #7A7069;        /* 薄いテキスト */
+      --accent:      #E8572A;        /* アクセントカラー（赤） */
+      --accent-2:    #F5C02A;        /* 第2アクセント（黄） */
+      --border:      rgba(245,240,232,.08);
+      --border-s:    rgba(245,240,232,.15);
+      --radius:      12px;
+      --radius-lg:   20px;
+      --nav-h:       72px;
+    }
+
+    /* ─────────────────────────────────────────────
+       リセット・ベース
+    ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─────────────────────────────────────────────
+       ユーティリティ
+    ───────────────────────────────────────────── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .section-eyebrow {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: .25em;
+      color: var(--accent);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: .04em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--text-2);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .85rem 2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .05em;
+      transition: all .25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #c94520; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border-s);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─────────────────────────────────────────────
+       ナビゲーション
+    ───────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 100;
+      transition: background .3s, backdrop-filter .3s;
+    }
+    .nav.scrolled {
+      background: rgba(13,11,9,.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: .12em;
+      color: var(--text);
+      transition: color .2s;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-logo:hover { color: var(--accent-2); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      color: var(--text-2);
+      transition: color .2s;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff !important;
+      padding: .5rem 1.25rem;
+      border-radius: 999px;
+      font-size: .88rem !important;
+      font-weight: 700 !important;
+      transition: background .2s, transform .2s !important;
+    }
+    .nav-cta:hover { background: #c94520 !important; transform: translateY(-1px); }
+
+    /* ハンバーガーメニュー（モバイル） */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all .3s;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: rgba(13,11,9,.97);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem;
+      z-index: 99;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    /* ─────────────────────────────────────────────
+       ヒーローセクション
+    ───────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      /* ▼ ここに実際の画像URLを入れる ▼ */
+      background:
+        linear-gradient(to bottom, rgba(13,11,9,.3) 0%, rgba(13,11,9,.6) 60%, rgba(13,11,9,1) 100%),
+        /* placeholder: 画像を入れたら下の行を削除 */
+        linear-gradient(135deg, #2A1A08 0%, #1A0E05 50%, #0D0B09 100%);
+      background-size: cover;
+      background-position: center;
+    }
+    /* 実際の画像を使う場合は .hero-bg { background-image: url('images/hero.jpg'); } */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    .hero-eyebrow {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14px;
+      letter-spacing: .4em;
+      color: var(--accent-2);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 14vw, 11rem);
+      line-height: .9;
+      letter-spacing: .04em;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--accent);
+      display: block;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-2);
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: var(--text-3);
+      font-size: .8rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--text-3), transparent);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─────────────────────────────────────────────
+       コンセプトセクション
+    ───────────────────────────────────────────── */
+    #concept {
+      padding: 120px 0;
+      background: var(--bg);
+    }
+    .concept-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .concept-img {
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-card);
+      /* ▼ 概念画像プレースホルダー ▼ */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+    }
+    .placeholder-img {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      color: var(--text-3);
+      font-size: .85rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .placeholder-img .icon { font-size: 3rem; }
+    .concept-text { display: flex; flex-direction: column; gap: 1.5rem; }
+    .concept-text p { color: var(--text-2); line-height: 1.9; }
+    .concept-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+    }
+    .concept-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .4rem 1rem;
+      border: 1px solid var(--border-s);
+      border-radius: 999px;
+      font-size: .85rem;
+      color: var(--text-2);
+      letter-spacing: .05em;
+    }
+
+    /* ─────────────────────────────────────────────
+       メニューセクション（後から追加・変更しやすい構造）
+    ───────────────────────────────────────────── */
+    #menu {
+      padding: 120px 0;
+      background: var(--bg-2);
+    }
+    .menu-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .menu-header .section-sub {
+      margin: 1rem auto 0;
+    }
+    /* カテゴリータブ（後から項目追加可能） */
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: .5rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .menu-tab {
+      padding: .55rem 1.5rem;
+      border: 1.5px solid var(--border-s);
+      border-radius: 999px;
+      font-size: .88rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .menu-tab:hover { border-color: var(--accent); color: var(--accent); }
+    .menu-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    /* メニューグリッド */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .menu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform .25s, border-color .25s;
+    }
+    .menu-card:hover { transform: translateY(-4px); border-color: var(--border-s); }
+    .menu-card-img {
+      aspect-ratio: 4/3;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-3);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+    .menu-card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .menu-card-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: .06em;
+      margin-bottom: .4rem;
+    }
+    .menu-card-desc {
+      font-size: .9rem;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .menu-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menu-card-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--accent-2);
+      letter-spacing: .04em;
+    }
+    .menu-card-tag {
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      background: rgba(232,87,42,.15);
+      color: var(--accent);
+      letter-spacing: .06em;
+    }
+    .menu-note {
+      text-align: center;
+      margin-top: 2.5rem;
+      color: var(--text-3);
+      font-size: .88rem;
+    }
+    .menu-note a { color: var(--accent); text-decoration: underline; }
+
+    /* ─────────────────────────────────────────────
+       店舗情報セクション
+    ───────────────────────────────────────────── */
+    #store {
+      padding: 120px 0;
+      background: var(--bg);
+    }
+    .store-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .store-info { display: flex; flex-direction: column; gap: 2.5rem; }
+    .store-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .store-table tr { border-bottom: 1px solid var(--border); }
+    .store-table tr:last-child { border-bottom: none; }
+    .store-table th {
+      text-align: left;
+      padding: 1rem 1rem 1rem 0;
+      color: var(--text-3);
+      font-weight: 500;
+      font-size: .88rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      width: 120px;
+      vertical-align: top;
+    }
+    .store-table td {
+      padding: 1rem 0;
+      color: var(--text-2);
+      font-size: .95rem;
+      line-height: 1.7;
+    }
+    .store-table td strong { color: var(--text); }
+    .store-btns { display: flex; flex-direction: column; gap: .75rem; }
+    /* アクセスマップエリア */
+    .map-area {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      min-height: 360px;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .map-area iframe {
+      border-radius: var(--radius-lg);
+    }
+    .map-placeholder {
+      text-align: center;
+      color: var(--text-3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .map-placeholder .icon { font-size: 3rem; }
+    .map-placeholder p { font-size: .85rem; line-height: 1.6; letter-spacing: .05em; }
+
+    /* ─────────────────────────────────────────────
+       ニュース・お知らせセクション
+    ───────────────────────────────────────────── */
+    #news {
+      padding: 100px 0;
+      background: var(--bg-2);
+    }
+    .news-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .news-item {
+      display: grid;
+      grid-template-columns: 120px 100px 1fr;
+      gap: 1.5rem;
+      align-items: baseline;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background .2s;
+    }
+    .news-item:first-child { border-top: 1px solid var(--border); }
+    .news-date {
+      font-size: .88rem;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+    .news-badge {
+      display: inline-block;
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .2rem .7rem;
+      border-radius: 999px;
+      background: rgba(232,87,42,.12);
+      color: var(--accent);
+      letter-spacing: .05em;
+      text-align: center;
+    }
+    .news-title {
+      color: var(--text-2);
+      font-size: .95rem;
+      line-height: 1.6;
+      transition: color .2s;
+    }
+    .news-item:hover .news-title { color: var(--text); }
+
+    /* ─────────────────────────────────────────────
+       SNSセクション（Instagram等）
+    ───────────────────────────────────────────── */
+    #sns {
+      padding: 100px 0;
+      background: var(--bg);
+    }
+    .sns-header { text-align: center; margin-bottom: 3rem; }
+    .sns-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: .5rem;
+    }
+    .sns-item {
+      aspect-ratio: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-3);
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      transition: border-color .2s, transform .2s;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .sns-item:hover { border-color: var(--border-s); transform: scale(.98); }
+    .sns-follow {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .sns-follow a {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      color: var(--text-2);
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      transition: color .2s;
+    }
+    .sns-follow a:hover { color: var(--text); }
+
+    /* ─────────────────────────────────────────────
+       フッター
+    ───────────────────────────────────────────── */
+    footer {
+      padding: 60px 0 40px;
+      background: #080706;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: .12em;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .footer-brand .logo span { color: var(--accent); }
+    .footer-brand p {
+      color: var(--text-3);
+      font-size: .9rem;
+      line-height: 1.8;
+    }
+    .footer-col h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .2em;
+      color: var(--text-3);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+    }
+    .footer-col ul li a {
+      color: var(--text-2);
+      font-size: .9rem;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      color: var(--text-3);
+      font-size: .85rem;
+    }
+    .footer-sns {
+      display: flex;
+      gap: 1rem;
+    }
+    .footer-sns a {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-s);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+      font-size: .85rem;
+      transition: all .2s;
+    }
+    .footer-sns a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─────────────────────────────────────────────
+       レスポンシブ
+    ───────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .concept-inner,
+      .store-inner { grid-template-columns: 1fr; }
+      .concept-img { aspect-ratio: 16/9; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .news-item { grid-template-columns: 100px 1fr; }
+      .news-badge { display: none; }
+      .sns-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .news-item { grid-template-columns: 1fr; gap: .4rem; }
+      .news-date { font-size: .8rem; }
+      .sns-grid { grid-template-columns: repeat(2, 1fr); }
+      .menu-tabs { gap: .4rem; }
+    }
+
+    /* ─────────────────────────────────────────────
+       アニメーション
+    ───────────────────────────────────────────── */
+
+    /* ① コンセプト画像：左からシュッとスライドイン */
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-90px) skewX(-3deg);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .slide-in-left.is-visible {
+      opacity: 1;
+      transform: translateX(0) skewX(0deg);
+    }
+
+    /* コンセプトテキスト：右からフェードイン（画像とセット） */
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+      will-change: transform, opacity;
+    }
+    .slide-in-right.is-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ② メニューカード：ドーン！とインパクトイン（バウンス付き） */
+    .impact-in {
+      opacity: 0;
+      transform: scale(0.72) translateY(40px);
+      transition:
+        opacity 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+      will-change: transform, opacity;
+    }
+    .impact-in.is-visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    /* カードを1枚ずつ時間差で出す */
+    .impact-in:nth-child(1) { transition-delay: 0s; }
+    .impact-in:nth-child(2) { transition-delay: 0.1s; }
+    .impact-in:nth-child(3) { transition-delay: 0.2s; }
+    .impact-in:nth-child(4) { transition-delay: 0.3s; }
+    .impact-in:nth-child(5) { transition-delay: 0.4s; }
+    .impact-in:nth-child(6) { transition-delay: 0.5s; }
+
+    /* ③ セクションタイトル：下からフェードイン（汎用） */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       ナビゲーション
+  ============================================= -->
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <div class="nav-inner">
+        <!-- ▼ ロゴ（店名）を変更 -->
+        <a href="#hero" class="nav-logo">GAB<span>°</span></a>
+
+        <!-- デスクトップメニュー -->
+        <div class="nav-links">
+          <a href="#concept">コンセプト</a>
+          <a href="#menu">メニュー</a>
+          <a href="#news">お知らせ</a>
+          <a href="#store">店舗情報</a>
+          <!-- ▼ 電話番号 or 予約リンクに変更 -->
+          <a href="#store" class="nav-cta">アクセス</a>
+        </div>
+
+        <!-- モバイルハンバーガーボタン -->
+        <div class="nav-hamburger" id="navHamburger" onclick="toggleMobileNav()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- モバイルナビ -->
+  <nav class="nav-mobile" id="mobileNav">
+    <a href="#concept" onclick="toggleMobileNav()">コンセプト</a>
+    <a href="#menu" onclick="toggleMobileNav()">メニュー</a>
+    <a href="#news" onclick="toggleMobileNav()">お知らせ</a>
+    <a href="#store" onclick="toggleMobileNav()">店舗情報</a>
+    <a href="#store" onclick="toggleMobileNav()">アクセス</a>
+  </nav>
+
+
+  <!-- =============================================
+       ヒーローセクション
+       ▼ background-image: url('images/hero.jpg') で背景画像を設定
+  ============================================= -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <!-- ▼ キャッチコピーを変更 -->
+      <p class="hero-eyebrow">Since 2025 · 〇〇市</p>
+      <h1 class="hero-title">
+        REAL
+        <em>BURGER</em>
+        EXPERIENCE
+      </h1>
+      <p class="hero-sub">
+        <!-- ▼ サブコピーを変更 -->
+        毎日仕込む自家製パティと、<br>こだわりのバンズが織りなす一皿。<br>本物のハンバーガーを、ここで。
+      </p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn btn-primary">メニューを見る</a>
+        <a href="#store" class="btn btn-outline">お店の場所</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">SCROLL</div>
+  </section>
+
+
+  <!-- =============================================
+       コンセプトセクション
+  ============================================= -->
+  <section id="concept">
+    <div class="container">
+      <div class="concept-inner">
+
+        <!-- 画像エリア（実際の画像に差し替え） -->
+        <div class="concept-img slide-in-left">
+          <div class="placeholder-img">
+            <span class="icon">🍔</span>
+            <p>コンセプト画像<br>（差し替えてください）</p>
+          </div>
+        </div>
+
+        <!-- テキスト -->
+        <div class="concept-text slide-in-right">
+          <div>
+            <span class="section-eyebrow">Our Concept</span>
+            <h2 class="section-title">素材が、<br>答えだ。</h2>
+          </div>
+          <!-- ▼ コンセプト文を変更 -->
+          <p>
+            厳選した国産牛を毎朝手でこね、鉄板で丁寧に焼き上げる自家製パティ。
+            地元のパン屋と共同開発したふわふわのブリオッシュバンズ。
+            季節ごとに変わる野菜と、秘伝のソースが重なって、
+            はじめて「本物のバーガー」が完成します。
+          </p>
+          <p>
+            添加物を使わず、手間を惜しまない。
+            それが私たちの唯一のこだわりです。
+          </p>
+          <!-- タグ（アピールポイント） -->
+          <div class="concept-tags">
+            <span class="concept-tag">🥩 国産牛100%</span>
+            <span class="concept-tag">🍞 自家製バンズ</span>
+            <span class="concept-tag">🥬 無農薬野菜</span>
+            <span class="concept-tag">🚫 保存料不使用</span>
+            <span class="concept-tag">🔥 毎日仕込み</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       メニューセクション
+       ▼ .menu-card を複製して商品を追加できます
+  ============================================= -->
+  <section id="menu">
+    <div class="container">
+
+      <div class="menu-header">
+        <span class="section-eyebrow">Menu</span>
+        <h2 class="section-title">OUR MENU</h2>
+        <p class="section-sub">
+          全てのバーガーはご注文後に調理いたします。<br>
+          アレルギー対応もお気軽にご相談ください。
+        </p>
+      </div>
+
+      <!-- カテゴリータブ（後から項目追加可能） -->
+      <div class="menu-tabs">
+        <button class="menu-tab active">バーガー</button>
+        <button class="menu-tab">サイドメニュー</button>
+        <button class="menu-tab">ドリンク</button>
+        <!-- ▼ 新カテゴリーはここに追加 -->
+      </div>
+
+      <!-- メニューグリッド（カードを追加するだけで増やせます） -->
+      <div class="menu-grid">
+
+        <!-- メニューカード1 -->
+        <div class="menu-card impact-in">
+          <div class="menu-card-img">
+            <span>写真を追加</span>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">クラシックバーガー</h3>
+            <p class="menu-card-desc">
+              定番の自家製パティに特製ソース、フレッシュレタス、トマトをサンド。
+              シンプルだけど、一番好きな一品。
+            </p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">¥980</span>
+              <span class="menu-card-tag">人気No.1</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- メニューカード2 -->
+        <div class="menu-card impact-in">
+          <div class="menu-card-img">
+            <span>写真を追加</span>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">ダブルチーズバーガー</h3>
+            <p class="menu-card-desc">
+              ダブルパティにとろけるチーズを2枚重ね。
+              ガッツリ食べたい日はこちら。
+            </p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">¥1,380</span>
+              <span class="menu-card-tag">ボリューム満点</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- メニューカード3 -->
+        <div class="menu-card impact-in">
+          <div class="menu-card-img">
+            <span>写真を追加</span>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-card-name">アボカドバーガー</h3>
+            <p class="menu-card-desc">
+              旬のアボカドとスパイシーサルサを合わせた、
+              ヘルシー志向の方に人気のメニュー。
+            </p>
+            <div class="menu-card-footer">
+              <span class="menu-card-price">¥1,280</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ▼ メニューカードをここに追加コピー ▼ -->
+
+      </div>
+
+      <p class="menu-note">
+        ※価格は税込。アレルギー情報は<a href="#store">店舗スタッフ</a>までお問い合わせください。
+        <!-- ▼ フルメニューPDFやページへのリンクを後から追加 -->
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       お知らせセクション
+       ▼ .news-item を複製してお知らせを追加
+  ============================================= -->
+  <section id="news">
+    <div class="container">
+
+      <div class="news-header">
+        <div>
+          <span class="section-eyebrow">News</span>
+          <h2 class="section-title">お知らせ</h2>
+        </div>
+        <!-- ▼ 一覧ページができたらここにリンクを追加 -->
+        <!-- <a href="/news/" class="btn btn-outline" style="font-size:.88rem">すべて見る</a> -->
+      </div>
+
+      <div class="news-list">
+
+        <div class="news-item">
+          <span class="news-date">2025.06.01</span>
+          <span class="news-badge">OPEN</span>
+          <span class="news-title">グランドオープンしました。皆様のご来店をお待ちしております。</span>
+        </div>
+
+        <!-- ▼ お知らせをここに追加 -->
+        <div class="news-item">
+          <span class="news-date">2025.06.15</span>
+          <span class="news-badge">メニュー</span>
+          <span class="news-title">夏季限定「スパイシーサルサバーガー」を期間限定販売開始。</span>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">2025.07.01</span>
+          <span class="news-badge">お休み</span>
+          <span class="news-title">7月15日（火）は店舗メンテナンスのため臨時休業いたします。</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SNS セクション（Instagram等）
+       ▼ 実際の投稿画像に差し替え
+  ============================================= -->
+  <section id="sns">
+    <div class="container">
+
+      <div class="sns-header">
+        <span class="section-eyebrow">Instagram</span>
+        <h2 class="section-title">FOLLOW US</h2>
+      </div>
+
+      <!-- ▼ 各 .sns-item に実際の画像を設定（background-image で入れるのが楽） -->
+      <div class="sns-grid">
+        <div class="sns-item"><span>📸</span></div>
+        <div class="sns-item"><span>📸</span></div>
+        <div class="sns-item"><span>📸</span></div>
+        <div class="sns-item"><span>📸</span></div>
+        <div class="sns-item"><span>📸</span></div>
+        <div class="sns-item"><span>📸</span></div>
+      </div>
+
+      <div class="sns-follow">
+        <!-- ▼ InstagramのURLを変更 -->
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">
+          ▶ @gab_burger2 をフォローする
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       店舗情報・アクセスマップセクション
+  ============================================= -->
+  <section id="store">
+    <div class="container">
+
+      <div style="margin-bottom:4rem;">
+        <span class="section-eyebrow">Store Info & Access</span>
+        <h2 class="section-title">店舗情報 & アクセス</h2>
+      </div>
+
+      <div class="store-inner">
+
+        <!-- 店舗情報テーブル -->
+        <div class="store-info">
+          <table class="store-table">
+            <tr>
+              <th>店舗名</th>
+              <td><strong>GAB°</strong></td>
+            </tr>
+            <tr>
+              <th>住所</th>
+              <td>
+                〒947-0021<br>
+                新潟県小千谷市本町1丁目7-1
+              </td>
+            </tr>
+            <tr>
+              <th>電話</th>
+              <!-- ▼ 電話番号を追加 -->
+              <td><a href="tel:0000-00-0000" style="color:var(--accent)">（準備中）</a></td>
+            </tr>
+            <tr>
+              <th>営業時間</th>
+              <!-- ▼ 営業時間を追加 -->
+              <td>（準備中）</td>
+            </tr>
+            <tr>
+              <th>定休日</th>
+              <!-- ▼ 定休日を追加 -->
+              <td>（準備中）</td>
+            </tr>
+            <tr>
+              <th>席数</th>
+              <!-- ▼ 席数を追加 -->
+              <td>（準備中）</td>
+            </tr>
+            <tr>
+              <th>駐車場</th>
+              <!-- ▼ 駐車場情報を追加 -->
+              <td>（準備中）</td>
+            </tr>
+          </table>
+
+          <!-- ボタン -->
+          <div class="store-btns">
+            <a href="https://maps.google.com/?q=GAB°+新潟県小千谷市本町1丁目7-1" target="_blank" rel="noopener" class="btn btn-primary">
+              📍 Google マップで開く
+            </a>
+            <!-- ▼ 電話番号が決まったら href="tel:000-000-0000" に変更 -->
+            <a href="tel:" class="btn btn-outline">
+              📞 電話で問い合わせ
+            </a>
+          </div>
+        </div>
+
+        <!-- アクセスマップ：GAB° 新潟県小千谷市本町1丁目7-1 -->
+        <div class="map-area" style="aspect-ratio:unset;height:420px;">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3126.7!2d138.7971!3d37.3106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff5bdeab38db1d3%3A0x3a4a513f62659325!2sGAB%C2%B0!5e0!3m2!1sja!2sjp!4v1746000000000"
+            width="100%"
+            height="100%"
+            style="border:0;display:block;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="GAB° アクセスマップ">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       フッター
+  ============================================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+
+        <!-- ブランドコラム -->
+        <div class="footer-brand">
+          <span class="logo">GAB<span>°</span></span>
+          <p>
+            <!-- ▼ 短いコンセプト文を変更 -->
+            毎朝仕込む自家製パティと<br>
+            こだわりのバンズで作る本物のバーガー。
+          </p>
+        </div>
+
+        <!-- メニューコラム -->
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="#concept">コンセプト</a></li>
+            <li><a href="#menu">メニュー</a></li>
+            <li><a href="#news">お知らせ</a></li>
+            <li><a href="#store">店舗情報</a></li>
+            <li><a href="#store">アクセス</a></li>
+            <!-- ▼ ページが増えたらここに追加 -->
+          </ul>
+        </div>
+
+        <!-- インフォコラム -->
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <!-- ▼ 後から追加するページ -->
+            <li><a href="#">採用情報（準備中）</a></li>
+            <li><a href="#">テイクアウト（準備中）</a></li>
+            <li><a href="#">プライバシーポリシー（準備中）</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- フッターボトム -->
+      <div class="footer-bottom">
+        <!-- ▼ 店名・年を変更 -->
+        <p>© 2025 GAB°. All rights reserved.</p>
+        <div class="footer-sns">
+          <!-- ▼ SNSのURLを変更 -->
+          <a href="https://www.instagram.com/gab_burger2" target="_blank" rel="noopener" title="Instagram">📷</a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener" title="X（Twitter）">𝕏</a>
+          <!-- ▼ TikTok等も追加可能 -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- =============================================
+       JavaScript
+  ============================================= -->
+  <script>
+    // ─── スクロール時にナビ背景を表示 ───────────────────
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ─── モバイルナビの開閉 ──────────────────────────────
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
+
+    // ─── メニュータブの切り替え ──────────────────────────
+    document.querySelectorAll('.menu-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+      });
+    });
+
+    // ─── スクロールアニメーション（Intersection Observer）──
+    // 対象クラス一覧
+    const animClasses = ['.slide-in-left', '.slide-in-right', '.impact-in', '.fade-up'];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          // 一度出たら監視解除（再スクロールで繰り返さない）
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,      // 要素の12%が見えたら発火
+      rootMargin: '0px 0px -40px 0px'  // 少し手前で発火
+    });
+
+    // 全ての対象要素を登録
+    document.querySelectorAll(animClasses.join(',')).forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
