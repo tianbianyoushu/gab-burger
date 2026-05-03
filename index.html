@@ -124,14 +124,21 @@
       gap: 2rem;
     }
     .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: .12em;
-      color: var(--text);
-      transition: color .2s;
+      display: flex;
+      align-items: center;
+      transition: opacity .2s;
     }
-    .nav-logo span { color: var(--accent); }
-    .nav-logo:hover { color: var(--accent-2); }
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      /* 白背景ロゴをダーク背景で反転表示 */
+      filter: invert(1);
+      transition: filter .2s, transform .2s;
+    }
+    .nav-logo:hover img {
+      filter: invert(1) brightness(0.8) sepia(1) saturate(5) hue-rotate(-10deg);
+      transform: scale(1.05);
+    }
     .nav-links {
       display: flex;
       align-items: center;
@@ -622,14 +629,15 @@
       margin-bottom: 3rem;
     }
     .footer-brand .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: .12em;
-      color: var(--text);
-      margin-bottom: 1rem;
-      display: block;
+      display: inline-block;
+      margin-bottom: 1.25rem;
     }
-    .footer-brand .logo span { color: var(--accent); }
+    .footer-brand .logo img {
+      height: 56px;
+      width: auto;
+      filter: invert(1);
+      opacity: 0.85;
+    }
     .footer-brand p {
       color: var(--text-3);
       font-size: .9rem;
@@ -785,7 +793,9 @@
     <div class="container">
       <div class="nav-inner">
         <!-- ▼ ロゴ（店名）を変更 -->
-        <a href="#hero" class="nav-logo">GAB<span>°</span></a>
+        <a href="#hero" class="nav-logo">
+          <img src="logo.png" alt="GAB°" />
+        </a>
 
         <!-- デスクトップメニュー -->
         <div class="nav-links">
@@ -1153,7 +1163,7 @@
 
         <!-- ブランドコラム -->
         <div class="footer-brand">
-          <span class="logo">GAB<span>°</span></span>
+          <span class="logo"><img src="logo.png" alt="GAB°" /></span>
           <p>
             <!-- ▼ 短いコンセプト文を変更 -->
             毎朝仕込む自家製パティと<br>
