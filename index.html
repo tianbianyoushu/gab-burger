@@ -16,16 +16,19 @@
        CSS カスタムプロパティ（色変更はここだけでOK）
     ───────────────────────────────────────────── */
     :root {
-      --bg:          #0D0B09;        /* ページ背景 */
-      --bg-2:        #161310;        /* セクション交互背景 */
-      --bg-card:     #1E1A16;        /* カード背景 */
-      --text:        #F5F0E8;        /* メインテキスト */
-      --text-2:      #B8AFA4;        /* サブテキスト */
-      --text-3:      #7A7069;        /* 薄いテキスト */
-      --accent:      #E8572A;        /* アクセントカラー（赤） */
-      --accent-2:    #F5C02A;        /* 第2アクセント（黄） */
-      --border:      rgba(245,240,232,.08);
-      --border-s:    rgba(245,240,232,.15);
+      --bg:          #FAFAF8;           /* ページ背景（温かみのある白） */
+      --bg-2:        #F2EDE7;           /* セクション交互背景（薄ベージュ） */
+      --bg-card:     #FFFFFF;           /* カード背景 */
+      --bg-dark:     #1C1208;           /* フッター等ダークエリア */
+      --text:        #1C1208;           /* メインテキスト（温かみのある黒） */
+      --text-2:      #6B5D52;           /* サブテキスト */
+      --text-3:      #A89888;           /* 薄いテキスト */
+      --accent:      #E8572A;           /* アクセントカラー（赤） */
+      --accent-2:    #C4890A;           /* 第2アクセント（濃いアンバー） */
+      --border:      rgba(28,18,8,.08);
+      --border-s:    rgba(28,18,8,.16);
+      --shadow:      0 2px 16px rgba(28,18,8,.07);
+      --shadow-lg:   0 8px 40px rgba(28,18,8,.10);
       --radius:      12px;
       --radius-lg:   20px;
       --nav-h:       72px;
@@ -99,7 +102,7 @@
       border: 1.5px solid var(--border-s);
       color: var(--text);
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(232,87,42,.04); }
 
     /* ─────────────────────────────────────────────
        ナビゲーション
@@ -112,9 +115,10 @@
       transition: background .3s, backdrop-filter .3s;
     }
     .nav.scrolled {
-      background: rgba(13,11,9,.92);
+      background: rgba(250,250,248,.95);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 20px rgba(28,18,8,.06);
     }
     .nav-inner {
       height: 100%;
@@ -131,12 +135,12 @@
     .nav-logo img {
       height: 44px;
       width: auto;
-      /* 白背景ロゴをダーク背景で反転表示 */
-      filter: invert(1);
-      transition: filter .2s, transform .2s;
+      /* 白ベース背景なのでロゴ（黒）をそのまま表示 */
+      filter: none;
+      transition: opacity .2s, transform .2s;
     }
     .nav-logo:hover img {
-      filter: invert(1) brightness(0.8) sepia(1) saturate(5) hue-rotate(-10deg);
+      opacity: 0.7;
       transform: scale(1.05);
     }
     .nav-links {
@@ -152,7 +156,7 @@
       transition: color .2s;
       text-transform: uppercase;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--accent); }
     .nav-cta {
       background: var(--accent);
       color: #fff !important;
@@ -187,8 +191,9 @@
       position: fixed;
       top: var(--nav-h);
       left: 0; right: 0;
-      background: rgba(13,11,9,.97);
+      background: rgba(250,250,248,.98);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(28,18,8,.08);
       padding: 1.5rem;
       z-index: 99;
     }
@@ -218,15 +223,33 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      /* ▼ ここに実際の画像URLを入れる ▼ */
+      /* ▼ 実際の画像URLを入れたら linear-gradient overlay を調整する ▼ */
       background:
-        linear-gradient(to bottom, rgba(13,11,9,.3) 0%, rgba(13,11,9,.6) 60%, rgba(13,11,9,1) 100%),
-        /* placeholder: 画像を入れたら下の行を削除 */
-        linear-gradient(135deg, #2A1A08 0%, #1A0E05 50%, #0D0B09 100%);
+        linear-gradient(160deg, #FAFAF8 0%, #F2EDE7 60%, #EAE0D5 100%);
       background-size: cover;
       background-position: center;
     }
-    /* 実際の画像を使う場合は .hero-bg { background-image: url('images/hero.jpg'); } */
+    /* 実際の画像を使う場合：
+       .hero-bg {
+         background-image:
+           linear-gradient(to bottom, rgba(250,250,248,.5) 0%, rgba(250,250,248,.85) 70%, #FAFAF8 100%),
+           url('images/hero.jpg');
+       }
+    */
+    /* 大きなロゴを背景デコレーションとして使う */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      right: -5%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 55vw;
+      max-width: 700px;
+      aspect-ratio: 1;
+      background: url('logo.png') center/contain no-repeat;
+      opacity: 0.04;
+      pointer-events: none;
+    }
     .hero-content {
       position: relative;
       z-index: 1;
@@ -237,7 +260,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: 14px;
       letter-spacing: .4em;
-      color: var(--accent-2);
+      color: var(--accent);
       margin-bottom: 1.5rem;
     }
     .hero-title {
@@ -254,11 +277,11 @@
       display: block;
     }
     .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-size: clamp(1rem, 2vw, 1.15rem);
       color: var(--text-2);
       max-width: 480px;
       margin: 0 auto 2.5rem;
-      line-height: 1.8;
+      line-height: 1.9;
     }
     .hero-btns {
       display: flex;
@@ -310,12 +333,12 @@
       aspect-ratio: 4/5;
       border-radius: var(--radius-lg);
       overflow: hidden;
-      background: var(--bg-card);
-      /* ▼ 概念画像プレースホルダー ▼ */
+      background: var(--bg-2);
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
     }
     .placeholder-img {
       display: flex;
@@ -394,12 +417,13 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      transition: transform .25s, border-color .25s;
+      box-shadow: var(--shadow);
+      transition: transform .3s, box-shadow .3s;
     }
-    .menu-card:hover { transform: translateY(-4px); border-color: var(--border-s); }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
     .menu-card-img {
       aspect-ratio: 4/3;
-      background: var(--bg);
+      background: var(--bg-2);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -430,7 +454,7 @@
     .menu-card-price {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.5rem;
-      color: var(--accent-2);
+      color: var(--accent);
       letter-spacing: .04em;
     }
     .menu-card-tag {
@@ -583,7 +607,7 @@
     }
     .sns-item {
       aspect-ratio: 1;
-      background: var(--bg-card);
+      background: var(--bg-2);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       display: flex;
@@ -593,11 +617,12 @@
       font-size: .7rem;
       text-transform: uppercase;
       letter-spacing: .08em;
-      transition: border-color .2s, transform .2s;
+      transition: box-shadow .2s, transform .2s;
       cursor: pointer;
       overflow: hidden;
+      box-shadow: var(--shadow);
     }
-    .sns-item:hover { border-color: var(--border-s); transform: scale(.98); }
+    .sns-item:hover { box-shadow: var(--shadow-lg); transform: scale(.98); }
     .sns-follow {
       text-align: center;
       margin-top: 2rem;
@@ -619,8 +644,8 @@
     ───────────────────────────────────────────── */
     footer {
       padding: 60px 0 40px;
-      background: #080706;
-      border-top: 1px solid var(--border);
+      background: var(--bg-dark);
+      border-top: none;
     }
     .footer-inner {
       display: grid;
@@ -635,11 +660,11 @@
     .footer-brand .logo img {
       height: 56px;
       width: auto;
-      filter: invert(1);
-      opacity: 0.85;
+      filter: invert(1);   /* フッターはダーク背景なので白抜き */
+      opacity: 0.9;
     }
     .footer-brand p {
-      color: var(--text-3);
+      color: rgba(245,240,232,.5);
       font-size: .9rem;
       line-height: 1.8;
     }
@@ -647,7 +672,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1rem;
       letter-spacing: .2em;
-      color: var(--text-3);
+      color: rgba(245,240,232,.4);
       margin-bottom: 1.25rem;
     }
     .footer-col ul {
@@ -657,22 +682,22 @@
       gap: .7rem;
     }
     .footer-col ul li a {
-      color: var(--text-2);
+      color: rgba(245,240,232,.6);
       font-size: .9rem;
       transition: color .2s;
     }
-    .footer-col ul li a:hover { color: var(--text); }
+    .footer-col ul li a:hover { color: #fff; }
     .footer-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-top: 2rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(245,240,232,.08);
       flex-wrap: wrap;
       gap: 1rem;
     }
     .footer-bottom p {
-      color: var(--text-3);
+      color: rgba(245,240,232,.35);
       font-size: .85rem;
     }
     .footer-sns {
@@ -682,12 +707,12 @@
     .footer-sns a {
       width: 36px;
       height: 36px;
-      border: 1px solid var(--border-s);
+      border: 1px solid rgba(245,240,232,.15);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-2);
+      color: rgba(245,240,232,.5);
       font-size: .85rem;
       transition: all .2s;
     }
