@@ -640,12 +640,12 @@
     .sns-follow a:hover { color: var(--text); }
 
     /* ─────────────────────────────────────────────
-       フッター
+       フッター（白ベース）
     ───────────────────────────────────────────── */
     footer {
       padding: 60px 0 40px;
-      background: var(--bg-dark);
-      border-top: none;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
     }
     .footer-inner {
       display: grid;
@@ -660,11 +660,11 @@
     .footer-brand .logo img {
       height: 56px;
       width: auto;
-      filter: invert(1);   /* フッターはダーク背景なので白抜き */
-      opacity: 0.9;
+      filter: none;   /* 白ベース背景なのでそのまま黒表示 */
+      opacity: 0.85;
     }
     .footer-brand p {
-      color: rgba(245,240,232,.5);
+      color: var(--text-2);
       font-size: .9rem;
       line-height: 1.8;
     }
@@ -672,7 +672,7 @@
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1rem;
       letter-spacing: .2em;
-      color: rgba(245,240,232,.4);
+      color: var(--text-3);
       margin-bottom: 1.25rem;
     }
     .footer-col ul {
@@ -682,22 +682,22 @@
       gap: .7rem;
     }
     .footer-col ul li a {
-      color: rgba(245,240,232,.6);
+      color: var(--text-2);
       font-size: .9rem;
       transition: color .2s;
     }
-    .footer-col ul li a:hover { color: #fff; }
+    .footer-col ul li a:hover { color: var(--accent); }
     .footer-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding-top: 2rem;
-      border-top: 1px solid rgba(245,240,232,.08);
+      border-top: 1px solid var(--border);
       flex-wrap: wrap;
       gap: 1rem;
     }
     .footer-bottom p {
-      color: rgba(245,240,232,.35);
+      color: var(--text-3);
       font-size: .85rem;
     }
     .footer-sns {
@@ -707,12 +707,12 @@
     .footer-sns a {
       width: 36px;
       height: 36px;
-      border: 1px solid rgba(245,240,232,.15);
+      border: 1px solid var(--border-s);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(245,240,232,.5);
+      color: var(--text-2);
       font-size: .85rem;
       transition: all .2s;
     }
